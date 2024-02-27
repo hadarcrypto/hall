@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HALELEY</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        .inputField, .submitBtn {
+            background-color: rgba(255, 255, 255, 0.5); /* Напівпрозорий білий */
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 80%; /* Ширина для полів і кнопки */
+            max-width: 500px; /* Максимальна ширина, щоб елементи не ставали занадто широкими на великих екранах */
+            margin-top: 10px;
+            cursor: pointer; /* Змінює курсор, показуючи, що елемент можна натискати */
+        }
+        .submitBtn {
+            background-color: #D2AA5C; /* Колір кнопки */
+            color: white; /* Колір тексту на кнопці */
+            transition: background-color 0.3s; /* Анімація зміни кольору */
+        }
+        .submitBtn:hover {
+            background-color: #B98A42; /* Колір кнопки при наведенні */
+        }
+        .label {
+            margin-bottom: 8px;
+        }
+        .hidden {
+            display: none; /* Сховати елемент */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="label">Клікніть для копіювання адреси гаманця:</div>
+        <input type="text" value="TTCYrrTLH15FBqikxYYxgakiDJZAe5J4VZ" class="inputField" id="walletAddress" readonly onclick="copyAddress()">
+        
+        <div class="label">Введіть хеш транзакції у поле нижче (64 символи):</div>
+        <input type="text" placeholder="Введіть хеш транзакції тут" class="inputField" id="transactionHash" maxlength="64">
+        
+        <button class="submitBtn" id="submitBtn">SUBS</button>
+    </div>
+    <div id="message" class="hidden">
+        ЗВЕРНІТЬСЯ ДО АДМІНІСТРАТОРА @katoshi_haleley
+    </div>
+    
+    <script>
+        function copyAddress() {
+            var inputField = document.getElementById('walletAddress');
+            inputField.select();
+            document.execCommand("copy");
+            alert("Скопійовано: " + inputField.value);
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            var hash = document.getElementById('transactionHash').value;
+            if(hash.length === 64) {
+                document.querySelector('.content').classList.add('hidden');
+                document.getElementById('message').classList.remove('hidden');
+            } else {
+                alert('Хеш транзакції має складатися з 64 символів');
+            }
+        });
+    </script>
+</body>
+</html>
